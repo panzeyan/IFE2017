@@ -1,0 +1,38 @@
+/*隐藏 checkbox radio*/
+input[type='checkbox'],
+input[type='radio'] {
+  display: none;
+}
+
+/*背景图实现*/
+/*CSS Sprite*/
+.background-img input[type='checkbox']+label {
+  position: relative;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background: url(../pictures/icons_for_radio_and_checkbox.png);
+  background-position: -24px -32px;
+}
+
+label span {
+  margin-left: 24px;
+}
+
+.background-img input[type='checkbox']:checked+label {
+  background-position: -59px -31px;
+}
+
+.background-img input[type='radio']+label {
+  position: relative;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background: url(../pictures/icons_for_radio_and_checkbox.png);
+  background-position: -24px -10px;
+}
+
+.background-img input[type='radio']:checked+label {
+  background-position: -59px -10px;
+}
+
