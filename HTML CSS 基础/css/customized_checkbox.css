@@ -1,11 +1,11 @@
-/*隐藏 checkbox radio*/
+/*隐藏 checkbox radio 原生样式*/
 input[type='checkbox'],
 input[type='radio'] {
   display: none;
 }
 
 /*背景图实现*/
-/*CSS Sprite*/
+/*使用 CSS Sprite*/
 .background-img input[type='checkbox']+label {
   position: relative;
   display: inline-block;
@@ -15,6 +15,7 @@ input[type='radio'] {
   background-position: -24px -32px;
 }
 
+/*增加图标和文字的距离*/
 label span {
   margin-left: 24px;
 }
@@ -34,5 +35,38 @@ label span {
 
 .background-img input[type='radio']:checked+label {
   background-position: -59px -10px;
+}
+
+/*伪元素实现*/
+/*使用 base64 图片*/
+.pseudo-elments input[type='checkbox']+label::before {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAWElEQVQ4je2TsQ2AMAwED4jEKJ4NBoIik3kUXkRQEBoqLBqKXOPqztXDRzoAd1+AKeiuZjZTA0f08+30UfFJC7TAPwIJQFKO7kFShrrGBAMwct03FGDboZyDlxrN2Y7oWwAAAABJRU5ErkJggg==) no-repeat;
+}
+
+.pseudo-elments input[type='checkbox']:checked+label::before {
+  content: '';
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA3klEQVQ4jb3TrU4DQRiF4QdYggTDRawdPyEhCAwSg0Hyo7gPBARRRD0JEgd6/QrM0BtAoLAstItgSBpoNywkHDPizPvOT/LxxyxAimGAo57sZVnVx7Kg7XvyJ7PYF/ya/xOkGHZTDKu/EqQYDnGNuxTD8nRXzNi8jx3slVXdZHiQ66uyql/nClIMazjFOm5SDLc4y/VJWdUXnU8oq/oZW3jCNs674G+CLLnHBh7RdsEzBVnygE0cdMHM+MQpyQijLnjuDfqkgGbSDvvOQzNph+RpLFjCio/1Jxnj5Y3xO0btSLveVPEAAAAAAElFTkSuQmCC) no-repeat;
+}
+
+.pseudo-elments input[type='radio']+label::before {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABj0lEQVQ4jZ2TMUtcQRSFvzvIFgtuihRiYRPEm/aBUywI+QGKXSCQwsIqKhhYwfyDpNAQCLJdmjQhkkYTWAttLRYiWjkaSBFFFuGB78EW4zKTYl/CskTjeuA2l/MdLnPvCH1yzo0BL4AZYKJoHwNbQF1VL3r9pg9+DXwHcuA58KCoOeAaOHLOvellpAfeAEaAeVW96p+s8FSAD0BLVRf/BhSp48BTVY3/gntCBNgEfqjqK3HOjQKHwLiqZrfBfZOcApMmhLAAvL8rDFB434UQFoyIzNJ94UH1VURmjIgo3TUNKiciE+b/vhtVijFemxDCCfD4HgGPYow/jff+GzB7j4Bp733DnJ+d1YGlYjV3UuF92Wq16jIEpnlwsF4ul8cY4JDa7fYvmyQ104Fgk2Q1z/MM+OycG74FHgY28zzPbJKsdiAIwFD3pEv7zeZapVJ5BrwFtgEHlOj+ymlgOcuyT1VrVwDfgWgAOhABX7W2tre7+yRN01Hv/ZcYYzuEcOm9/5im6cOdRmOqam3tDwzwG8lbrnZ0/2pYAAAAAElFTkSuQmCC) no-repeat;
+}
+
+.pseudo-elments input[type='radio']:checked+label::before {
+  content: '';
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAB00lEQVQ4jZWTQUgUURjHf+/tukbldgwPdtDVGrwII4gJc+2giJcgqPQQQRHYwUo7dPJQWHQIpA6xl4VF8pYGQbeB7bJNZiSTFVoQRDdbTWln5o2HGeXxWKw+eIfve/////2/970nMMJ37DbgKjAEdKXlj8Bz4LHlej90vDTId4G3wCZwHjiWrjEgAN77jn1P5wiNPAscBy5ZrvfLdJZi8kAR+Gm53rV9gVS1AJy1XC9uRNZEBDAPfLFcb0r4jt0KLAMFy/VqB5ENJ5+BXrHi2NMS6pbrTWuAHHAfuJC6LAE3Ldera5jbCvJZAcPAqHHIDDCu5ePADjCl1RYFlKWAkyRj0uNiA+eXjXxVQJdsAPzXyMUQSAWfgFPGZqkB4amRt8ewng2UetEs5TDJJPbiFsnl7bVSAu4YAoOBUi/FYm/3iY7Dh6pA5/+O8dvOn3458mbl+3akykAxfSR/IwuguB2p8lD1w1cZguqrLE1uhVENeOY7dssB5BZgfiuMan2VpckQlADIJv3mKqd7HuSzmXPAQ2ABWAVyJL9yELheC6O5gdfvbgD1EOJ9y6lI06PujkJP/uiVI5nMmSYp2mMIQhWv/Y6iV9WNzScT/to6EIQQA+wCGE2kAg7qk5gAAAAASUVORK5CYII=) no-repeat;
+}
+
+/*调整图标和文字的间距*/
+.pseudo-elments label span {
+  margin-left: 10px;
 }
 
