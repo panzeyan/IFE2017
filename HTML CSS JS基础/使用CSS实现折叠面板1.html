@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>使用CSS实现折叠面板1（伪类实现）</title>
+  <link rel="stylesheet" href="css/accordion.css">
+</head>
+<body>
+  <div class="wrapper">
+    <h1>使用CSS实现折叠面板（伪类）</h1>
+
+    <div class="panel-group">
+      <div class="panel-item">
+        <label for="item1" class="panel-title">任务目的</label>
+        <input type="radio" id="item1" name="panel">
+        <div class="panel-body">
+          <p>
+            <ol>
+              <li>深入理解html中radio的特性</li>
+              <li>深入理解CSS选择器以及伪元素的使用</li>
+            </ol>
+          </p>
+        </div>
+      </div>
+
+      <div class="panel-item">
+        <label for="item2" class="panel-title">任务描述</label>
+        <input type="radio" id="item2" name="panel">
+        <div class="panel-body">
+          <p>使用input的radio单选框特性结合CSS中的伪元素实现bootstrap中折叠面板(点击查看样例)，要求样式一致。</p>
+        </div>
+      </div>
+
+      <div class="panel-item">
+        <label for="item3" class="panel-title">任务注意事项</label>
+        <input type="radio" id="item3" name="panel">
+        <div class="panel-body">
+          <p>
+            <ol>
+              <li>当其中一个面对折叠时，其他面板需要隐藏</li>
+              <li>只能使用HTML，CSS，不允许使用JavaScript</li>
+              <li>注意测试不同情况，尤其是极端情况下的效果</li>
+              <li>有能力的同学在面板折叠或者展开时添加动画效果</li>
+            </ol>
+          </p>
+        </div>
+      </div>
+
+      <div class="panel-item">
+        <label for="item4" class="panel-title">参考资料</label>
+        <input type="radio" id="item4" name="panel">
+        <div class="panel-body">
+          <p>
+            <ol>
+              <li>MDN label: 了解html中label的基本知识</li>
+              <li>MDN Adjacent sibling selectors: 了解CSS中的兄弟相邻选择器</li>
+            </ol>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,13 @@
+/*隐藏 input*/
+.panel-group input[type="radio"] {
+  display: none;
+}
+
+.panel-body {
+  height: 0;
+  overflow: hidden;
+}
+
+.panel-group input[type="radio"]:checked + .panel-body {
+  height: auto;
+}
