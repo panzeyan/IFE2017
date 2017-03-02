@@ -7,5 +7,4 @@ editorInput.addEventListener("keyup", function (e) {
     var value = e.target.value;
     previewer.innerHTML = mdParser.parse(value);
   }
-  
-})
+}, false);

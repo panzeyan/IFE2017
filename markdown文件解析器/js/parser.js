@@ -16,7 +16,7 @@ var mdParser = {
     quote: /^>\s+([^\n]+)/m,
 
     // 代码块
-    codeblock: /\`\`\`\n([^\`]+)\`\`\`/g
+    codeblock: /\`\`\`\n?([^\`]+)\`\`\`/g
   },
 
   parse: function (str) {
@@ -28,7 +28,11 @@ var mdParser = {
       count = stra[1].length;
       str = str.replace(stra[0], '<h' + count + '>' + stra[2] + '</h' + count + '>');
     }
-    
+
+    // 处理代码块
+    while ((stra = mdParser.regex.codeblock.exec(str)) !== null) {
+      str = str.replace(stra[0], '<pre><code>' + stra[1] + '</code></pre>')
+    }
 
     return str;
   }
