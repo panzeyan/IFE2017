@@ -5,7 +5,7 @@ body {
 
 .container {
   box-sizing: border-box;
-  height: 500px;
+  height: 676px;
 }
 
 /*两列等高布局*/
@@ -28,4 +28,5 @@ body {
   background-color: #333;
   color: #fff;
   resize: none;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Droid Sans Mono', 'Consolas', monospace;
 }
