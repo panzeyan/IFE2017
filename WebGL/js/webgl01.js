@@ -15,17 +15,14 @@ scene.add(camera);
 
 // 车身（长方体）
 var cube = new THREE.Mesh(new THREE.CubeGeometry(2, 1, 1),
-  new THREE.MeshBasicMaterial({
+  new THREE.MeshLambertMaterial({
     color: 0x00aaff
   })
 );
 scene.add(cube);
 
 // 轮子（圆环面）*4
-// var wheel = new THREE.
-//   new THREE.TorusGeometry(0.2, 0.04, 12, 18);
-
-var geometry = new THREE.TorusGeometry(0.2, 0.04, 12, 18);
+var geometry = new THREE.TorusGeometry(0.2, 0.07, 12, 18);
 var material = new THREE.MeshLambertMaterial({
   color: 0x00aaff
 });
