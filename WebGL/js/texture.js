@@ -79,7 +79,6 @@ var ambientLight = new THREE.AmbientLight(0x888888);
 scene.add(ambientLight);
 
 var directionalLight = new THREE.DirectionalLight(0x989898);
-directionalLight.position.set(4, 6, -4); // 平行光方向
 
 // 平行光阴影设置
 directionalLight.castShadow = true;
