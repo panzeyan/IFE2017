@@ -11,7 +11,7 @@ renderer.shadowMapSoft = true;
 var scene = new THREE.Scene();
 
 var camera = new THREE.PerspectiveCamera(45, 4 / 3, 1, 100);
-camera.position.set(-3, 2, 3);
+camera.position.set(4, 2, 3);
 camera.lookAt(new THREE.Vector3(0, 0, 0));
 scene.add(camera);
 
@@ -39,7 +39,7 @@ scene.add(cube);
 // 轮子（圆环面）*4
 var geometry = new THREE.TorusGeometry(0.2, 0.07, 12, 18);
 var material = new THREE.MeshPhongMaterial({
-  color: 0x00aaff
+  color: 0x222222
 });
 var wheel1 = new THREE.Mesh(geometry, material);
 wheel1.position.set(0.5, -0.5, 0.5);
@@ -67,7 +67,7 @@ scene.add(wheel4);
 // 地板平面
 var plane = new THREE.Mesh(new THREE.PlaneGeometry(10, 10, 10, 10),
   new THREE.MeshLambertMaterial({
-    color: 0x66cc66
+    color: 0x999999
   }));
 plane.rotation.x = -Math.PI / 2;
 plane.position.y = -0.77;
@@ -79,7 +79,7 @@ var ambientLight = new THREE.AmbientLight(0x888888);
 scene.add(ambientLight);
 
 var directionalLight = new THREE.DirectionalLight(0x989898);
-directionalLight.position.set(5, 6, 4); // 平行光方向
+directionalLight.position.set(4, 6, -4); // 平行光方向
 
 // 平行光阴影设置
 directionalLight.castShadow = true;
