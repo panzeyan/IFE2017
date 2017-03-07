@@ -42,13 +42,13 @@ var material = new THREE.MeshPhongMaterial({
   color: 0x222222
 });
 var wheel1 = new THREE.Mesh(geometry, material);
-wheel1.position.set(0.5, -0.5, 0.5);
+wheel1.position.set(0.65, -0.5, 0.5);
 var wheel2 = new THREE.Mesh(geometry, material);
-wheel2.position.set(0.5, -0.5, -0.5);
+wheel2.position.set(0.65, -0.5, -0.5);
 var wheel3 = new THREE.Mesh(geometry, material);
-wheel3.position.set(-0.5, -0.5, 0.5);
+wheel3.position.set(-0.85, -0.5, 0.5);
 var wheel4 = new THREE.Mesh(geometry, material);
-wheel4.position.set(-0.5, -0.5, -0.5);
+wheel4.position.set(-0.85, -0.5, -0.5);
 
 wheel1.castShadow = true;
 wheel1.receiveShadow = true;
