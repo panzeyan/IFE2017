@@ -1,4 +1,5 @@
-var renderer, scene, camera, cube, stat, controls;
+var renderer, scene, camera, bus, stat, controls;
+var id;
 
 init();
 animate();
@@ -11,14 +12,14 @@ function init() {
     antialias: true,
     precision: 'highp'
   });
-  renderer.setClearColor(0xaaaaaa);
+  renderer.setClearColor(0x000000);
   renderer.shadowMap.enabled = true;
   renderer.shadowMapSoft = true;
 
   scene = new THREE.Scene();
 
-  camera = new THREE.PerspectiveCamera(45, 4 / 3, 1, 100);
-  camera.position.set(4, 2, 3);
+  camera = new THREE.PerspectiveCamera(45, 4 / 3, 1, 1000);
+  camera.position.set(0, 100, 0);
   camera.lookAt(new THREE.Vector3(0, 0, 0));
   scene.add(camera);
 
@@ -36,12 +37,11 @@ function init() {
     }));
   }
 
-  cube = new THREE.Mesh(new THREE.BoxGeometry(3, 1, 1),
+  var carBody = new THREE.Mesh(new THREE.BoxGeometry(3, 1, 1),
     new THREE.MultiMaterial(cubeMaterials)
   );
-  cube.castShadow = true;
-  cube.receiveShadow = true;
-  scene.add(cube);
+  carBody.castShadow = true;
+  scene.add(carBody);
 
   // 轮子（圆环面）*4
   var geometry = new THREE.TorusGeometry(0.2, 0.07, 12, 18);
@@ -71,8 +71,13 @@ function init() {
   scene.add(wheel3);
   scene.add(wheel4);
 
+  // 组装车身和车轮
+  bus = new THREE.Object3D(0, 0, 0);
+  bus.add(carBody, wheel1, wheel2, wheel3, wheel4);
+  scene.add(bus);
+
   // 地板平面
-  var plane = new THREE.Mesh(new THREE.PlaneGeometry(10, 10, 10, 10),
+  var plane = new THREE.Mesh(new THREE.PlaneGeometry(100, 100, 10, 10),
     new THREE.MeshLambertMaterial({
       color: 0x999999
     }));
@@ -119,23 +124,56 @@ function init() {
   // change事件发生时重新渲染画面
   controls.addEventListener('change', render);
 
-  // 开始渲染
-  render();
+  id = requestAnimationFrame(animate);
 }
 
 function render() {
   renderer.render(scene, camera);
-  stat.update();
 }
 
 function animate() {
-
-  // https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
-  // 向浏览器请求调用animate
-  requestAnimationFrame(animate);
+  stat.begin();
 
   // 更新controls
   controls.update();
 
+  // turnLeft(bus);
+  turnRight(bus);
+  // go(bus);
+  back(bus);
+
   render();
+
+  // https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
+  // 向浏览器请求调用animate
+  id = requestAnimationFrame(animate);
+
+  stat.end();
+}
+
+
+// bus运动
+function turnLeft(car) {
+  car.rotation.y = car.rotation.y + 0.01;
+}
+
+function turnRight(car) {
+  car.rotation.y = car.rotation.y - 0.01;
+}
+
+function go(car) {
+
+  // 前进方向
+  var angleY = car.rotation.y;
+
+  car.position.x += Math.cos(angleY) * 0.1;
+  car.position.z -= Math.sin(angleY) * 0.1;
+}
+
+function back(car) {
+  // 前进方向
+  var angleY = car.rotation.y;
+
+  car.position.x -= Math.cos(angleY) * 0.1;
+  car.position.z += Math.sin(angleY) * 0.1;
 }
