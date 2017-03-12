@@ -11,35 +11,47 @@
 <body>
     <script>
         function Observer(obj) {
-            this.data = obj;
-            this.walk(obj);
+            this.data = obj; // 保存对象至data属性
+            this.walk(obj); // 对传入对象的属性进行处理
         }
 
         Observer.prototype = {
             constructor: Observer,
+
             walk: function (obj) {
                 for (let key in obj) {
+
+                    // 只监听实例属性
                     if (obj.hasOwnProperty(key)) {
+
+                        // 处理键和值
                         this.convert(key, obj[key]);
                     }
                 }
             },
+
             convert: function (key, value) {
                 Object.defineProperty(this.data, key, {
+
+                    // setter
                     get: function () {
                         console.log('你访问了 ' + key);
                         return value
                     },
+
+                    // getter
                     set: function (newValue) {
                         console.log('你设置了 ' + key);
                         console.log('新的值为 ' + newValue);
-                        value = newValue;
+                        value = newValue; // 设置新值
                         return value
                     }
                 })
             }
         }
 
+
+        // 实例化
         let app1 = new Observer({
             name: 'peter',
             age: 25
