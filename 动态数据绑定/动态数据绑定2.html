@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>动态数据绑定（二）</title>
+</head>
+
+<body>
+    <script>
+        function Observer(obj) {
+            this.data = obj; // 保存对象至data属性
+            this.walk(obj); // 对传入对象的属性进行处理
+        }
+
+        Observer.prototype = {
+            constructor: Observer,
+
+            walk: function (obj) {
+                let val;
+
+                for (let key in obj) {
+
+                    // 只监听实例属性
+                    if (obj.hasOwnProperty(key)) {
+                        val = obj[key]
+
+                        // 当值为对象时，递归调用 Observer()
+                        if (typeof val === 'object') {
+                            new Observer(val);
+                        }
+
+                        // 处理键和值
+                        this.convert(key, val);
+                    }
+                }
+            },
+
+            convert: function (key, value) {
+                Object.defineProperty(this.data, key, {
+
+                    // getter
+                    get: function () {
+                        console.log('你访问了 ' + key);
+                        return value;
+                    },
+
+                    // setter
+                    set: function (newValue) {
+
+                        // 当 newValue 为对象时,递归调用 Observer()
+                        if (typeof newValue === 'object') {
+                            new Observer(newValue);
+                        }
+
+                        console.log('你设置了 ' + key);
+                        console.log('新的值为 ' + newValue);
+                        value = newValue; // 设置新值
+                        // return value;
+                    }
+                })
+            }
+        }
+
+
+        // 实例化
+        let app1 = new Observer({
+            name: {
+                lastName: 'Wang',
+                firstName: 'Ada'
+            },
+            age: 25
+        });
+
+        let app2 = new Observer({
+            university: 'hust',
+            major: 'Material'
+        });
+    </script>
+</body>
+
+</html>
