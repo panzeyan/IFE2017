@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>动态数据绑定（一）</title>
+</head>
+
+<body>
+    <script>
+        function Observer(obj) {
+            this.data = obj;
+            this.walk(obj);
+        }
+
+        Observer.prototype = {
+            constructor: Observer,
+            walk: function (obj) {
+                for (let key in obj) {
+                    if (obj.hasOwnProperty(key)) {
+                        this.convert(key, obj[key]);
+                    }
+                }
+            },
+            convert: function (key, value) {
+                Object.defineProperty(this.data, key, {
+                    get: function () {
+                        console.log('你访问了 ' + key);
+                        return value
+                    },
+                    set: function (newValue) {
+                        console.log('你设置了 ' + key);
+                        console.log('新的值为 ' + newValue);
+                        value = newValue;
+                        return value
+                    }
+                })
+            }
+        }
+
+        let app1 = new Observer({
+            name: 'peter',
+            age: 25
+        });
+
+        let app2 = new Observer({
+            university: 'hust',
+            major: 'Material'
+        });
+    </script>
+</body>
+
+</html>
