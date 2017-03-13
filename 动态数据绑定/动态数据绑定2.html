@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>动态数据绑定（二）</title>
+    <script type="text/javascript" src="js/event.js"></script>
 </head>
 
 <body>
@@ -36,33 +37,46 @@
                         this.convert(key, val);
                     }
                 }
-            },
-
-            convert: function (key, value) {
-                Object.defineProperty(this.data, key, {
-
-                    // getter
-                    get: function () {
-                        console.log('你访问了 ' + key);
-                        return value;
-                    },
-
-                    // setter
-                    set: function (newValue) {
-
-                        // 当 newValue 为对象时,递归调用 Observer()
-                        if (typeof newValue === 'object') {
-                            new Observer(newValue);
-                        }
-
-                        console.log('你设置了 ' + key);
-                        console.log('新的值为 ' + newValue);
-                        value = newValue; // 设置新值
-                        // return value;
-                    }
-                })
             }
+        };
+
+
+        Observer.prototype.convert = function (key, value) {
+
+            let _this = this;   // 保存this
+            
+            Object.defineProperty(this.data, key, {
+
+                // getter
+                get: function () {
+                    console.log('你访问了 ' + key);
+                    return value;
+                },
+
+                // setter
+                set: function (newValue) {
+
+                    // 当 newValue 为对象时,递归调用 Observer()
+                    if (typeof newValue === 'object') {
+                        new Observer(newValue);
+                    }
+
+                    console.log('你设置了 ' + key);
+                    console.log('新的值为 ' + newValue);
+
+                    _this.trigger(key, newValue); // 发布
+
+                    value = newValue; // 设置新值
+                }
+            })
+        };
+
+        Observer.prototype.$watch = function (attr, callback) {
+            this.listen(attr, callback); // 订阅attr属性
         }
+
+        // 给原型对象动态安装发布-订阅功能
+        installEvent(Observer.prototype);
 
 
         // 实例化
@@ -73,6 +87,10 @@
             },
             age: 25
         });
+
+        app1.$watch('age', function (age) {
+            console.log(`我的年纪变了，现在已经是：${age}岁了`);
+        })
 
         let app2 = new Observer({
             university: 'hust',
